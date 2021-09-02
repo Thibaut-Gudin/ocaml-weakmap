@@ -50,3 +50,36 @@ val delete : weakmap -> key -> unit
 
 [@@@js.implem let delete map k = map##delet (Obj.repr k)]
  *)
+
+(*ABORT*)
+(*
+[@@@js.stop]
+
+type weakmap_js = (Js_of_ocaml.Js.Unsafe.global ##. WeakMap) Js_of_ocaml.Js.t
+
+val new_weakmap_js : ?iterable:(key * Ojs.t) array -> unit -> weakmap_js
+
+val get_js : weakmap_js -> 'a -> 'b Js_of_ocaml.Js.meth
+
+val set_js : weakmap_js -> 'a -> 'b -> unit Js_of_ocaml.Js.meth
+
+val delete_js : weakmap_js -> 'a -> unit Js_of_ocaml.Js.meth
+
+[@@@js.start]
+
+[@@@js.implem
+let weakmap_js = Js_of_ocaml.Js.Unsafe.global ##. WeakMap Js_of_ocaml.Js.t]
+
+[@@@js.implem
+let new_weakmap_js ?iterable () =
+  let w = Js_of_ocaml.Js.Unsafe.global ##. WeakMap in
+  new%js w iterable]
+
+(*??? Comment faire un appel de fonction à partir argument js.implem*)
+
+[@@@js.implem let get_js map k = map##get k]
+
+[@@@js.implem let set_js map k v = map##set k v]
+
+[@@@js.implem let delete_js map k = map##delete k]
+ *)
